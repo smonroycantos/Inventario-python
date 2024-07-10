@@ -1,14 +1,12 @@
-import funciones
+import fumciones
 
 def main():
-    nombres = []
-    cantidades = []
-    precios = []
-    cantidad_productos = 0
+    nombres, cantidades, precios = fumciones.cargar_productos()
+    cantidad_productos = len(nombres)
 
     while True:
-        funciones.menu()
-        opcion = funciones.seleccionar_opcion()
+        fumciones.menu()
+        opcion = fumciones.seleccionar_opcion()
 
         if opcion == 1:
             nombre = input("Ingrese el nombre del producto: ")
@@ -18,6 +16,7 @@ def main():
             cantidades.append(cantidad)
             precios.append(precio)
             cantidad_productos += 1
+            fumciones.guardar_productos(nombres, cantidades, precios)
             print("Producto agregado exitosamente.")
         elif opcion == 2:
             nombre = input("Ingrese el nombre del producto a editar: ")
@@ -25,6 +24,7 @@ def main():
                 i = nombres.index(nombre)
                 cantidades[i] = int(input("Ingrese la nueva cantidad: "))
                 precios[i] = float(input("Ingrese el nuevo precio: "))
+                fumciones.guardar_productos(nombres, cantidades, precios)
                 print("Producto editado exitosamente.")
             else:
                 print("Producto no encontrado.")
@@ -36,12 +36,13 @@ def main():
                 del cantidades[i]
                 del precios[i]
                 cantidad_productos -= 1
+                fumciones.guardar_productos(nombres, cantidades, precios)
                 print("Producto eliminado exitosamente.")
             else:
                 print("Producto no encontrado.")
         elif opcion == 4:
             print("\nLista de productos en inventario:\n")
-            print("Nombre\t\tCantidad\tPrecio")
+            print("Nombre\t\tCantidad\t\tPrecio")
             for i in range(cantidad_productos):
                 print(f"{nombres[i]}\t\t{cantidades[i]}\t\t{precios[i]:.2f}")
         elif opcion == 5:
